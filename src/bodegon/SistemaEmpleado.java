@@ -21,17 +21,15 @@ public class SistemaEmpleado
         return listaEmpleado;
     }
     
-    public Empleado buscarEmpleado(String datos) 
+    public Empleado buscarEmpleado(String codigo) 
     {
         int i = 0;
         boolean encontrado = false;
         Empleado empleado = null;
 
         while (i < listaEmpleado.size() && !encontrado) 
-        {
-            empleado = listaEmpleado.get(i);
-            
-            if (datos.equals(empleado.getUsuario() + ":" + empleado.getContrasenia())) 
+        {   
+            if (codigo.equals(listaEmpleado.get(i).getCodigo())) 
             {
                 encontrado = true;
             } 
@@ -50,6 +48,5 @@ public class SistemaEmpleado
            return empleado;
         }
     }
-
 
 }

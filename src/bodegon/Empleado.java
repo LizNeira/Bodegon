@@ -4,41 +4,32 @@ import java.io.Serializable;
 
 public abstract class Empleado implements Serializable
 {
-    private String usuario;
-    private String contrasenia;
-    private String codigo;
+    private final String usuario;
+    private final String contrasenia;
+    private final String codigo;
 
+    public Empleado(String usuario, String contrasenia, String codigo)
+    {
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+        this.codigo = codigo;
+    }
+    
     public String getContrasenia() 
     {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String password)
-    {
-        this.contrasenia = password;
+       return contrasenia;
     }
 
     public String getUsuario() 
     {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) 
-    {
-        this.usuario = usuario;
+       return usuario;
     }
 
     public String getCodigo() 
     {
-        return codigo;
+       return codigo;
     }
 
-    public void setCodigo(String codigo)
-    {
-        this.codigo = codigo;
-    }
-
-    //TODO: Leave comments temporarily, to avoid errors in other classes. Thanks!!
-    //public abstract boolean ejecutarSistema(Sistema sistemaBurger);
+    public abstract boolean menuPrincipal(Sistema sistema);
  
 }

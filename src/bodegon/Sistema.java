@@ -11,7 +11,7 @@ public class Sistema
         sistemaEmpleado = new SistemaEmpleado();
     }
 
-    public SistemaEmpleado getSistemaDeUsuarios()
+    public SistemaEmpleado getSistemaEmpleado()
     {
         return sistemaEmpleado;
     }

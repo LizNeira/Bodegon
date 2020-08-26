@@ -1,22 +1,25 @@
 
 package bodegon;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Controlador
 {
     public void ejecutar() {
 
         Sistema sistema = new Sistema();
-        String usuario,contrasenia;
-        int codigo;
+        String usuario,contrasenia, codigo;
         boolean seguir;
 
         try 
         {
-             sistema = sistema.deSerializar("sistema.txt");
-             seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar? responda si o no");
+           sistema = sistema.deSerializar("sistema.txt");
+           seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar [s/n]");
         } 
-        catch (Exception e)
+        catch (IOException | ClassNotFoundException e)
         {
             usuario = EntradaYSalida.leerCadena("Arranque inicial del sistema.\n"
                     + "Nuevo Administrador, Ingrese su nombre: ");
@@ -26,13 +29,6 @@ public class Controlador
                         + "Ingrese su usuario: ");
             }
             
-            codigo = EntradaYSalida.leerEntero("Ingrese su código de acceso único: ");
-            while (Integer.toString(codigo).isEmpty())
-            {
-                codigo = EntradaYSalida.leerEntero("ERROR: El código no puede ser nulo"
-                        + "+Ingrese su código:");
-            }
-            
             contrasenia = EntradaYSalida.leerCadena("Ingrese su contraseña: ");
             while (contrasenia.isEmpty())
             {
@@ -40,33 +36,49 @@ public class Controlador
                         + "+Ingrese su contraseña:");
             }
             
-            sistema.getUsuarios().add(new Administrador(usuario, codigo, contrasenia));
-            sistema.serializar("sistema.txt");
-            EntradaYSalida.mostrarMensaje("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
+            codigo = EntradaYSalida.leerCadena("Ingrese su código de acceso único: ");
+            while (codigo.isEmpty())
+            {
+                codigo = EntradaYSalida.leerCadena("ERROR: El código no puede ser nulo"
+                        + "+Ingrese su código:");
+            }
             
-            seguir = false;
+            sistema.getSistemaEmpleado().getlistaEmpleado().add(new Administrador(usuario, contrasenia, codigo));
+            
+            try 
+            {
+               sistema.serializar("sistema.txt");
+               EntradaYSalida.mostrarMensaje("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
+            } 
+            catch (IOException ex) 
+            {
+               Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            seguir = false;     
             EntradaYSalida.mostrarMensaje(e.getMessage());
 
         }
-         while (seguir)
-         {
-            codigo = EntradaYSalida.leerEntero("¡¡BIENVENIDO!!"
+        
+        while (seguir)
+        {
+            codigo = EntradaYSalida.leerCadena("¡¡BIENVENIDO!!"
                     + "Ingrese su código de acceso único:");
-            while (Integer.toString(codigo).isEmpty())
+            while (codigo.isEmpty())
             {
-                EntradaYSalida.leerEntero("ERROR: El código no puede ser nulo"
+                EntradaYSalida.leerCadena("ERROR: El código no puede ser nulo"
                         + "Ingrese su código:");
             }
 
             Empleado empleado = sistema.getSistemaEmpleado().buscarEmpleado(codigo);
 
-            if (empleado.equals(empleado))
+            if (null == empleado)
             {
-                seguir = empleado.ejecutarSistema(sistema);
+                EntradaYSalida.mostrarMensaje("ERROR: El código de acceso único ingresado no es valido.");    
             } 
             else
             {
-             EntradaYSalida.mostrarMensaje("ERROR: El código de acceso único ingresado no es valido.");
+               seguir = empleado.menuPrincipal(sistema);
             }
         }
 
