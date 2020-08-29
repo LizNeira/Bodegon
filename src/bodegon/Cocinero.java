@@ -1,8 +1,11 @@
 
 package bodegon;
 
-public class Cocinero extends Empleado
+import java.io.Serializable;
+
+public class Cocinero extends Empleado implements Serializable
 {
+    
      public Cocinero(String usuario, String contrasenia, String codigo)
      {
        super(usuario, contrasenia, codigo);
@@ -18,7 +21,8 @@ public class Cocinero extends Empleado
            {
                 mensaje = "\n-----Menu Cocinero-----\n"
                          +"[1] Ver pedidos para cocinar\n"
-                         +"[2] Salir\n";
+                         +"[2] Salir\n"
+                         +"Digite una opcion: ";
                 opcion = EntradaYSalida.leerEntero(mensaje);
                 
                 switch (opcion) 

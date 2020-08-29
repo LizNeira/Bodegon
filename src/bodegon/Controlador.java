@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Controlador
+public class Controlador 
 {
     public void ejecutar() {
 
@@ -17,7 +17,7 @@ public class Controlador
         try 
         {
            sistema = sistema.deSerializar("sistema.txt");
-           seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar [s/n]");
+           seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar [s/n]: ");
         } 
         catch (IOException | ClassNotFoundException e)
         {
@@ -52,22 +52,21 @@ public class Controlador
             } 
             catch (IOException ex) 
             {
-               Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            seguir = false;     
-            EntradaYSalida.mostrarMensaje(e.getMessage());
+             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
 
+            }
+            seguir = false;     
         }
         
         while (seguir)
         {
-            codigo = EntradaYSalida.leerCadena("¡¡BIENVENIDO!!"
-                    + "Ingrese su código de acceso único:");
+            codigo = EntradaYSalida.leerCadena("\n¡¡BIENVENIDO!!\n"
+                    + "Ingrese su código de acceso único: ");
+            
             while (codigo.isEmpty())
             {
                 EntradaYSalida.leerCadena("ERROR: El código no puede ser nulo"
-                        + "Ingrese su código:");
+                        + "Ingrese su código: ");
             }
 
             Empleado empleado = sistema.getSistemaEmpleado().buscarEmpleado(codigo);

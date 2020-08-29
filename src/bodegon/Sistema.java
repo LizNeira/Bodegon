@@ -2,7 +2,7 @@ package bodegon;
 
 import java.io.*;
 
-public class Sistema
+public class Sistema  implements Serializable
 {
     private SistemaEmpleado sistemaEmpleado;
  
@@ -23,14 +23,16 @@ public class Sistema
 
     public Sistema deSerializar(String a) throws IOException, ClassNotFoundException
     {
-        Sistema s;
+        Sistema sistema;
         try (FileInputStream f = new FileInputStream(a); 
             ObjectInputStream o = new ObjectInputStream(f)) 
             {
-                s = (Sistema) o.readObject();
+                sistema = (Sistema) o.readObject();
+               o.close();
+               f.close();
             }
         
-        return s;
+        return sistema;
     }
 
     public void serializar(String a) throws IOException
@@ -39,6 +41,8 @@ public class Sistema
              ObjectOutputStream o = new ObjectOutputStream(f)) 
             {
                 o.writeObject(this);
+                o.close();
+                f.close();
             }
     }
 

@@ -1,8 +1,9 @@
 package bodegon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SistemaEmpleado
+public class SistemaEmpleado implements Serializable
 {
     private ArrayList<Empleado> listaEmpleado;
 
@@ -28,25 +29,21 @@ public class SistemaEmpleado
         Empleado empleado = null;
 
         while (i < listaEmpleado.size() && !encontrado) 
-        {   
-            if (codigo.equals(listaEmpleado.get(i).getCodigo())) 
-            {
+        {  
+            empleado = listaEmpleado.get(i);
+            
+            if (codigo.equals(empleado.getCodigo())) 
                 encontrado = true;
-            } 
+            
             else 
-            {
                 i++;
-            }
         }
         
         if (!encontrado)
-        {
             return null;
-        } 
+        
         else 
-        {
            return empleado;
-        }
     }
 
 }

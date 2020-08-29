@@ -36,7 +36,7 @@ public class EntradaYSalida
     }
     public static boolean leerBoolean(String texto)
     {
-        System.out.println(texto);
+        System.out.print(texto);
         String entrada = new Scanner(System.in).nextLine();
 
         if (toUpperCase(entrada.charAt(0)) == 'S')

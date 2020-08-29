@@ -1,7 +1,9 @@
 
 package bodegon;
 
-public class Camarero extends Empleado
+import java.io.Serializable;
+
+public class Camarero extends Empleado implements Serializable
 {
  
    public Camarero(String usuario, String contrasenia, String codigo)
