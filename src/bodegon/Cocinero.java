@@ -20,7 +20,7 @@ public class Cocinero extends Empleado implements Serializable
            do 
            {
                 mensaje = "\n-----Menu Cocinero-----\n"
-                         +"[1] Ver pedidos para cocinar\n"
+                         +"[1] Mostrar pedidos por cocinar\n"
                          +"[2] Salir\n"
                          +"Digite una opcion: ";
                 opcion = EntradaYSalida.leerEntero(mensaje);
@@ -28,11 +28,12 @@ public class Cocinero extends Empleado implements Serializable
                 switch (opcion) 
                 {
                     case 1:
+                            mostrarPedidoCocinar();
                         
                        break;
                     
                     case 2:
-                        EntradaYSalida.mostrarMensaje("Cerrando menu del cocinero");
+                        EntradaYSalida.mostrarMensaje("Cerrando menu del cocinero...");
                       break;
                 }
             
@@ -40,6 +41,15 @@ public class Cocinero extends Empleado implements Serializable
             
             return true;
      }
+
+    private void mostrarPedidoCocinar()
+    {
+        //muestra la lista,
+       EntradaYSalida.mostrarMensaje("\n----Lista de pedidos por cocinar----");
+       // lista de pedidos
+       EntradaYSalida.mostrarMensaje("\n----Lista de pedidos por cocinar----");
+
+    }
 
 
 }
