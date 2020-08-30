@@ -7,17 +7,12 @@ public class Pedido implements Serializable
     private Bebida bebida; 
     private Preparacion preparacion;
     private int numeroMesa;
-
-    public Pedido()
-    {
-    }
-
     
-    public  Pedido(Preparacion preparacion, Bebida bebida, int numeroMesa)
+    public Pedido(Preparacion preparacion, Bebida bebida /*int numeroMesa*/)
     {
-       this.bebida = bebida;
        this.preparacion = preparacion;
-       this.numeroMesa = numeroMesa;
+       this.bebida = bebida;
+       //this.numeroMesa = numeroMesa;
     }
 
     public Bebida getBebida() 
@@ -50,6 +45,5 @@ public class Pedido implements Serializable
         this.numeroMesa = numeroMesa;
     }
     
-
 
 }

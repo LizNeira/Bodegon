@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class SistemaPedido implements Serializable
 {
     private ArrayList<Pedido> listaPedidoCocinar;
-
+    
     public SistemaPedido()
     {
        listaPedidoCocinar = new ArrayList<>();
@@ -19,8 +19,26 @@ public class SistemaPedido implements Serializable
 
     public ArrayList<Pedido> getListaPedidoCocinar() 
     {
-        return listaPedidoCocinar;
+        return this.listaPedidoCocinar;
     }
 
+    public void setPedido(Preparacion preparacion, String descripcion,
+                          Bebida bebida, String nombreBebida)
+    {
+        preparacion.setDescripcion(descripcion);
+        bebida.setDescripcion(descripcion);
+        this.listaPedidoCocinar.add(new Pedido(preparacion, bebida));
+    }
    
+    public void mostrarListaPedidoCocinar()
+    {
+        for (int i = 0; i < listaPedidoCocinar.size(); i++) 
+        {
+            EntradaYSalida.mostrarMensaje((i+1)
+                    +"- "+listaPedidoCocinar.get(i).getBebida().getDescripcion()
+                    +" "+listaPedidoCocinar.get(i).getPreparacion().getDescripcion()/*+" "+p.getNumeroMesa()*/);
+
+        }
+        
+    }
 }

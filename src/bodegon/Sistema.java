@@ -5,10 +5,12 @@ import java.io.*;
 public class Sistema  implements Serializable
 {
     private SistemaEmpleado sistemaEmpleado;
+    private SistemaPedido sistemaPedido;
  
     public Sistema()
     {
         sistemaEmpleado = new SistemaEmpleado();
+        sistemaPedido = new SistemaPedido();
     }
 
     public SistemaEmpleado getSistemaEmpleado()
@@ -19,6 +21,16 @@ public class Sistema  implements Serializable
     public void setSistemaEmpleado(SistemaEmpleado sistemaEmpleado) 
     {
         this.sistemaEmpleado = sistemaEmpleado;
+    }
+    
+    public SistemaPedido getSistemaPedido() 
+    {
+        return sistemaPedido;
+    }
+
+    public void setSistemaPedido(SistemaPedido sistemaPedido) 
+    {
+        this.sistemaPedido = sistemaPedido;
     }
 
     public Sistema deSerializar(String a) throws IOException, ClassNotFoundException
@@ -37,7 +49,7 @@ public class Sistema  implements Serializable
 
     public void serializar(String a) throws IOException
     {
-        try (FileOutputStream f = new FileOutputStream(a); 
+        try (FileOutputStream f = new FileOutputStream(a, true); 
              ObjectOutputStream o = new ObjectOutputStream(f)) 
             {
                 o.writeObject(this);

@@ -30,4 +30,9 @@ public class Bebida implements Serializable
         return precio;
     }
     
+    public static Bebida obtenerBebida()
+    {
+        return new Bebida();
+    }
+    
 }

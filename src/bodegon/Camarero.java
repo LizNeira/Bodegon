@@ -1,15 +1,11 @@
-
 package bodegon;
 
 import java.io.Serializable;
 
 public class Camarero extends Empleado implements Serializable
-{   
-    
-   private Pedido pedido = null;
-   private Bebida bebida = null;
-   private Preparacion preparacion = null;
-   private SistemaPedido sistemaPedido = null;
+{    
+   private SistemaPedido sistemaPedido = new SistemaPedido();
+   
    public Camarero(String usuario, String contrasenia, String codigo)
    {
       super(usuario, contrasenia, codigo);
@@ -33,7 +29,6 @@ public class Camarero extends Empleado implements Serializable
            {
               case 1:
                       tomarPedido();
-                     
                break;
                     
               case 2:
@@ -48,18 +43,13 @@ public class Camarero extends Empleado implements Serializable
 
     private void tomarPedido()
     {
-        pedido = new Pedido();
-        bebida = new Bebida();
-        preparacion = new Preparacion();
-        sistemaPedido = new SistemaPedido();
         String descripcion;
         String nombreBebida;   
         String opcion;
         int numeroMesa;
         
       do
-      {
-          
+      {       
         EntradaYSalida.mostrarMensaje("\n----Tomar Pedido----\n");
         descripcion = EntradaYSalida.leerCadena("Ingrese la preparacion: ");
         while(descripcion.isEmpty())
@@ -67,6 +57,7 @@ public class Camarero extends Empleado implements Serializable
           descripcion = EntradaYSalida.leerCadena("\nLa prepracion ingresada no es válida\n"
                                                    + "\nIngrese nuevamente: ");
         }
+
         nombreBebida = EntradaYSalida.leerCadena("Ingrese la bebida: "); 
         while(nombreBebida.isEmpty())
         {
@@ -74,29 +65,20 @@ public class Camarero extends Empleado implements Serializable
                                                    + "\nIngrese nuevamente: ");
         }
         
-        numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
-        while(numeroMesa<=0)
-        {
-          numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
-                                                   + "\nIngrese nuevamente: ");
-        }
+//        numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
+//        while(numeroMesa<=0)
+//        {
+//          numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
+//                                                   + "\nIngrese nuevamente: ");
+//        }
         
-        preparacion.setDescripcion(descripcion);
-        bebida.setDescripcion(nombreBebida);
-//        pedido.setPreparacion(preparacion);
-//        pedido.setBebida(bebida);
-//        pedido.setNumeroMesa(numeroMesa);
-//        sistemaPedido.getListaPedidoCocinar().add(new Pedido(preparacion.setDescripcion(descripcion),bebida.setDescripcion(descripcion),numeroMesa));
+        sistemaPedido.setPedido(Preparacion.obtenerPreparacion(), descripcion,
+                                Bebida.obtenerBebida(), nombreBebida);
+                
         opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
         } while( opcion.equals("s") || opcion.equals("S"));
          
-         Pedido p = new Pedido();
-        for (int i=0;i<sistemaPedido.getListaPedidoCocinar().size(); i++)
-        { 
-            p=sistemaPedido.getListaPedidoCocinar().get(i);
-            EntradaYSalida.mostrarMensaje(p.getBebida().getDescripcion()+" "+
-            p.getPreparacion().getDescripcion()+" "+p.getNumeroMesa());
-        }
+                
     }
 }

@@ -28,5 +28,10 @@ public class Preparacion implements Serializable
     {
         return precio;
     }
+    
+    public static Preparacion obtenerPreparacion()
+    {
+        return new Preparacion();
+    }
 
 }
