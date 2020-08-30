@@ -32,7 +32,7 @@ public class Camarero extends Empleado implements Serializable
                break;
                     
               case 2:
-                  EntradaYSalida.mostrarMensaje("Cerrando menu del camarero");
+                  EntradaYSalida.mostrarMensaje("Cerrando menu del camarero...");
                 break;
            }
             

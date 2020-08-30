@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Bebida implements Serializable
 {
   private String descripcion;
-  private Double precio;
+  private double precioUnitario;
 
 
     public void setDescripcion(String descripcion)
@@ -15,9 +15,9 @@ public class Bebida implements Serializable
         this.descripcion = descripcion;
     }
 
-    public void setPrecio(Double precio)
+    public void setPrecio(double precio)
     {
-        this.precio = precio;
+        this.precioUnitario = precio;
     }
 
     public String getDescripcion()
@@ -25,9 +25,9 @@ public class Bebida implements Serializable
         return descripcion;
     }
 
-    public Double getPrecio()
+    public double getPrecio()
     {
-        return precio;
+        return precioUnitario;
     }
     
     public static Bebida obtenerBebida()

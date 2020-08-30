@@ -7,16 +7,16 @@ import java.io.Serializable;
 public class Preparacion implements Serializable
 {
    private String descripcion;
-   private Double precio;
+   private double precioUnitario;
 
     public void setDescripcion(String descripcion)
     {
         this.descripcion = descripcion;
     }
 
-    public void setPrecio(Double precio)
+    public void setPrecio(double precio)
     {
-        this.precio = precio;
+        this.precioUnitario = precio;
     }
 
     public String getDescripcion()
@@ -24,9 +24,9 @@ public class Preparacion implements Serializable
         return descripcion;
     }
 
-    public Double getPrecio()
+    public double getPrecio()
     {
-        return precio;
+        return precioUnitario;
     }
     
     public static Preparacion obtenerPreparacion()
