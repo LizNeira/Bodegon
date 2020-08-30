@@ -6,7 +6,19 @@ public class Pedido implements Serializable
 {
     private Bebida bebida; 
     private Preparacion preparacion;
-    private String numeroMesa;
+    private int numeroMesa;
+
+    public Pedido()
+    {
+    }
+
+    
+    public  Pedido(Preparacion preparacion, Bebida bebida, int numeroMesa)
+    {
+       this.bebida = bebida;
+       this.preparacion = preparacion;
+       this.numeroMesa = numeroMesa;
+    }
 
     public Bebida getBebida() 
     {
@@ -27,15 +39,17 @@ public class Pedido implements Serializable
     {
         this.preparacion = preparacion;
     }
-    
-    public String getNumeroMesa()
+
+    public int getNumeroMesa()
     {
         return numeroMesa;
     }
 
-    public void setNumeroMesa(String numeroMesa)
+    public void setNumeroMesa(int numeroMesa)
     {
         this.numeroMesa = numeroMesa;
     }
+    
+
 
 }

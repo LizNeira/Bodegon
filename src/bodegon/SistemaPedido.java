@@ -12,12 +12,12 @@ public class SistemaPedido implements Serializable
        listaPedidoCocinar = new ArrayList<>();
     }
 
-    public void setPedidosCocinar(ArrayList<Pedido> listaPedidoCocinar) 
+    public void setListaPedidoCocinar(ArrayList<Pedido> listaPedidoCocinar) 
     {
         this.listaPedidoCocinar = listaPedidoCocinar;
     }
 
-    public ArrayList<Pedido> getPedidosCocinar() 
+    public ArrayList<Pedido> getListaPedidoCocinar() 
     {
         return listaPedidoCocinar;
     }
