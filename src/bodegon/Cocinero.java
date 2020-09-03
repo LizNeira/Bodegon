@@ -44,11 +44,26 @@ public class Cocinero extends Empleado implements Serializable
 
     private void mostrarPedidoCocinar()
     {
-        //muestra la lista,
-       EntradaYSalida.mostrarMensaje("\n----Lista de pedidos por cocinar----");
-       // lista de pedidos
-       EntradaYSalida.mostrarMensaje("\n----Lista de pedidos por cocinar----");
+        Sistema sistema=null;
+        String opcion;
+        int indicePedido;
+   
+    do
+      {       
+        EntradaYSalida.mostrarMensaje("\n---Lista de pedidos por cocinar---n");
+        // muestro el listado de pedidos+precio
+        indicePedido = EntradaYSalida.leerEntero("\n\nIngrese una opción: ");
+                
+         while (indicePedido < 0 || indicePedido > sistema.getSistemaPedido().getListaPedidoCocinar().size())
+                {
+                  indicePedido = EntradaYSalida.leerEntero("\nOpcion no valida"
+                  + "\nIngrese nuevamente: ");
+                }
 
+        opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
+
+        } while( opcion.equals("s") || opcion.equals("S"));
+    
     }
 
 

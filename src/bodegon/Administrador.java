@@ -5,12 +5,14 @@ import java.io.Serializable;
 
 public class Administrador extends Empleado implements Serializable
 {    
-    private SistemaPedido sistemaPedido = null;
+      GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
+  //  Sistema sistema = new Sistema();
 
     public Administrador(String usuario, String contrasenia, String codigo)
     {
         super(usuario, contrasenia, codigo);
     }
+
    
     @Override
     public boolean menuPrincipal(Sistema sistema)
@@ -39,7 +41,7 @@ public class Administrador extends Empleado implements Serializable
                     altaCamarero(sistema);
              break;
             case 3:
-                    darPrecioPedido();
+                    darPrecioPedido(sistema);
              break;
             case 4:
                     mostrarResumenGeneral();
@@ -90,6 +92,8 @@ public class Administrador extends Empleado implements Serializable
             else
             {
                 sistema.getSistemaEmpleado().getlistaEmpleado().add(new Cocinero(usuario, contrasenia, codigo));
+                guardarYLeerArchivo.guardarArchivo(sistema);
+               //  sistema.guardarArchivo(sistema);
                 EntradaYSalida.mostrarMensaje("\nSe ha incorporado el COCINERO al sistema\n");
             }
             
@@ -119,12 +123,14 @@ public class Administrador extends Empleado implements Serializable
                 contrasenia = EntradaYSalida.leerCadena("ERROR: La contraseña no puede ser nula"
                         + "+Ingrese su contraseña:");
             }
+            
             codigo = EntradaYSalida.leerCadena("Ingrese su código de acceso único: ");
             while (codigo.isEmpty())
             {
                 codigo = EntradaYSalida.leerCadena("ERROR: El códigono puede ser nulo"
                         + "Ingrese su usuario: ");
             }
+            
             empleado = sistema.getSistemaEmpleado().buscarEmpleado(codigo);
             if (empleado != null)
             {
@@ -133,6 +139,8 @@ public class Administrador extends Empleado implements Serializable
             else
             {
                 sistema.getSistemaEmpleado().getlistaEmpleado().add(new Camarero(usuario, contrasenia, codigo));
+                guardarYLeerArchivo.guardarArchivo(sistema);
+             //   sistema.guardarArchivo(sistema);
                 EntradaYSalida.mostrarMensaje("\nSe ha incorporado el CAMARERO al sistema\n");
             }
             opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
@@ -140,32 +148,37 @@ public class Administrador extends Empleado implements Serializable
         } while (opcion.equals("s") || opcion.equals("S"));
   }
 
-    private void darPrecioPedido()
+    private void darPrecioPedido(Sistema sistema)
     {
-        double precio = 0.0;
+        Double precio = 0.0;
         String opcion;
         int indicePedido;
+        Pedido pedido = null;
         
         do{
         
                EntradaYSalida.mostrarMensaje("\n----Lista de pedidos----");
-       //         sistemaPedido.mostrarListaPedidoCocinar();
-                indicePedido = EntradaYSalida.leerEntero("\n\nIngrese una opción: ");
+               sistema.getSistemaPedido().mostrarListaPedidoCocinar();
+               indicePedido = EntradaYSalida.leerEntero("\n\nIngrese una opción: ");
                 
-                while (indicePedido < 0 || indicePedido > sistemaPedido.getListaPedidoCocinar().size())
+                while (indicePedido < 0 || indicePedido > sistema.getSistemaPedido().getListaPedidoCocinar().size())
                 {
                   indicePedido = EntradaYSalida.leerEntero("\nOpcion no valida"
                   + "\nIngrese nuevamente: ");
                 }
+                sistema.getSistemaPedido().precioPedido(indicePedido);
                 
                 precio = EntradaYSalida.leerDouble("\nIngrese el precio: ");
-                while (precio<=0)
+                while (precio<=0.0)
                 {
                 precio = EntradaYSalida.leerDouble("ERROR: El usuario no puede ser nulo"
                         + "Ingrese su usuario: ");
                 }
- 
-            opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
+                
+               sistema.getSistemaPedido().getListaPedidoCocinar().get(indicePedido).setPrecio(precio);
+               EntradaYSalida.mostrarMensaje("Precio a pagar"+precio);
+     
+               opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
         } while (opcion.equals("s") || opcion.equals("S"));
     }

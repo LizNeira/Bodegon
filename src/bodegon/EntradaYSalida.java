@@ -29,10 +29,10 @@ public class EntradaYSalida
         return entrada.nextInt();
     }   
    
-   public static float leerDouble(String mensaje) 
+   public static Double leerDouble(String mensaje) 
     {
         System.out.print(mensaje);
-        return (float) entrada.nextDouble();
+        return (Double) entrada.nextDouble();
     }
     public static boolean leerBoolean(String texto)
     {

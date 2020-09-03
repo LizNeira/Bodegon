@@ -1,11 +1,15 @@
 package bodegon;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Camarero extends Empleado implements Serializable
 {    
    private SistemaPedido sistemaPedido = new SistemaPedido();
-   
+   GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
+
    public Camarero(String usuario, String contrasenia, String codigo)
    {
       super(usuario, contrasenia, codigo);
@@ -28,8 +32,12 @@ public class Camarero extends Empleado implements Serializable
            switch (opcion) 
            {
               case 1:
-                      tomarPedido();
+               {
+                   
+                       tomarPedido(sistema);
+               }
                break;
+
                     
               case 2:
                   EntradaYSalida.mostrarMensaje("Cerrando menu del camarero...");
@@ -41,7 +49,7 @@ public class Camarero extends Empleado implements Serializable
             return true;
     }
 
-    private void tomarPedido()
+    private void tomarPedido(Sistema sistema) 
     {
         String descripcion;
         String nombreBebida;   
@@ -72,9 +80,9 @@ public class Camarero extends Empleado implements Serializable
 //                                                   + "\nIngrese nuevamente: ");
 //        }
         
-        sistemaPedido.setPedido(Preparacion.obtenerPreparacion(), descripcion,
+        sistema.getSistemaPedido().setPedido(Preparacion.obtenerPreparacion(), descripcion,
                                 Bebida.obtenerBebida(), nombreBebida);
-                
+        guardarYLeerArchivo.guardarArchivo(sistema);
         opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
         } while( opcion.equals("s") || opcion.equals("S"));
