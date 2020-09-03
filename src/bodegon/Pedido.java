@@ -8,11 +8,11 @@ public class Pedido implements Serializable
     private Preparacion preparacion;
     private int numeroMesa;
     
-    public Pedido(Preparacion preparacion, Bebida bebida /*int numeroMesa*/)
+    public Pedido(Preparacion preparacion, Bebida bebida, int numeroMesa)
     {
        this.preparacion = preparacion;
        this.bebida = bebida;
-       //this.numeroMesa = numeroMesa;
+       this.numeroMesa = numeroMesa;
     }
 
     public Bebida getBebida() 

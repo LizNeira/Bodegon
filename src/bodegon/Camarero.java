@@ -65,15 +65,15 @@ public class Camarero extends Empleado implements Serializable
                                                    + "\nIngrese nuevamente: ");
         }
         
-//        numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
-//        while(numeroMesa<=0)
-//        {
-//          numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
-//                                                   + "\nIngrese nuevamente: ");
-//        }
+         numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
+         while(numeroMesa <= 0)
+         {
+           numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
+                                                    + "\nIngrese nuevamente: ");
+        }
         
         sistemaPedido.setPedido(Preparacion.obtenerPreparacion(), descripcion,
-                                Bebida.obtenerBebida(), nombreBebida);
+                                Bebida.obtenerBebida(), nombreBebida, numeroMesa);
                 
         opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 

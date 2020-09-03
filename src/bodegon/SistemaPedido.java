@@ -23,11 +23,11 @@ public class SistemaPedido implements Serializable
     }
 
     public void setPedido(Preparacion preparacion, String descripcion,
-                          Bebida bebida, String nombreBebida)
+                          Bebida bebida, String nombreBebida, int numeroMesa)
     {
         preparacion.setDescripcion(descripcion);
         bebida.setDescripcion(descripcion);
-        this.listaPedidoCocinar.add(new Pedido(preparacion, bebida));
+        this.listaPedidoCocinar.add(new Pedido(preparacion, bebida, numeroMesa));
     }
    
     public void mostrarListaPedidoCocinar()
