@@ -5,16 +5,11 @@ import java.util.ArrayList;
 
 public class SistemaEmpleado implements Serializable
 {
-    private ArrayList<Empleado> listaEmpleado;
+    private final ArrayList<Empleado> listaEmpleado;
 
     public SistemaEmpleado() 
     {
         listaEmpleado = new ArrayList<>();
-    }
-
-    public void setlistaEmpleado(ArrayList<Empleado> listaEmpleado)
-    {
-        this.listaEmpleado = listaEmpleado;
     }
 
     public ArrayList<Empleado> getlistaEmpleado() 

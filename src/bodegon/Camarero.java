@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 public class Camarero extends Empleado implements Serializable
 {    
-   private SistemaPedido sistemaPedido = new SistemaPedido();
+   GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
+   Resumen resumen = null;
+   Controlador controlador = null;
    
    public Camarero(String usuario, String contrasenia, String codigo)
    {
       super(usuario, contrasenia, codigo);
+      resumen = new Resumen();
    }
    
    @Override
@@ -27,10 +30,9 @@ public class Camarero extends Empleado implements Serializable
                 
            switch (opcion) 
            {
-              case 1:
-                      tomarPedido();
-               break;
-                    
+              case 1:                 
+                   tomarPedido(sistema);
+               break; 
               case 2:
                   EntradaYSalida.mostrarMensaje("Cerrando menu del camarero...");
                 break;
@@ -41,8 +43,9 @@ public class Camarero extends Empleado implements Serializable
             return true;
     }
 
-    private void tomarPedido()
-    {
+   private void tomarPedido(Sistema sistema) 
+   {
+        controlador = new Controlador();
         String descripcion;
         String nombreBebida;   
         String opcion;
@@ -72,9 +75,12 @@ public class Camarero extends Empleado implements Serializable
                                                     + "\nIngrese nuevamente: ");
         }
         
-        sistemaPedido.setPedido(Preparacion.obtenerPreparacion(), descripcion,
+        sistema.getSistemaPedido().setPedido(Preparacion.obtenerPreparacion(), descripcion,
                                 Bebida.obtenerBebida(), nombreBebida, numeroMesa);
-                
+        resumen.setNombreBebida(nombreBebida);
+        resumen.setNombrePreparacion(descripcion);
+        resumen.setCodigoCamarero(Integer.parseInt(controlador.getCodigo()));
+        guardarYLeerArchivo.guardarArchivo(sistema);
         opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
         } while( opcion.equals("s") || opcion.equals("S"));

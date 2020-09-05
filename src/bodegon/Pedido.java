@@ -6,6 +6,7 @@ public class Pedido implements Serializable
 {
     private Bebida bebida; 
     private Preparacion preparacion;
+    private double precio;
     private int numeroMesa;
     
     public Pedido(Preparacion preparacion, Bebida bebida, int numeroMesa)
@@ -43,6 +44,14 @@ public class Pedido implements Serializable
     public void setNumeroMesa(int numeroMesa)
     {
         this.numeroMesa = numeroMesa;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
     
 

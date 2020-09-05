@@ -5,13 +5,14 @@ import java.util.Scanner;
 
 public class EntradaYSalida
 {
-   private static final Scanner entrada = new Scanner(System.in); 
+   private static Scanner entrada = null;  
 
    private EntradaYSalida()
    {
+       entrada = new Scanner(System.in);
    }
 
-   public static void mostrarMensaje(final String s)
+   public static void mostrarMensaje(String s)
    {
        System.out.print(s);
    }
@@ -24,29 +25,23 @@ public class EntradaYSalida
    }
    
    public static int leerEntero(String mensaje)
-    {
+   {
         System.out.print(mensaje);
         return entrada.nextInt();
     }   
    
-   public static float leerDouble(String mensaje) 
-    {
+   public static Double leerDouble(String mensaje) 
+   {
         System.out.print(mensaje);
-        return (float) entrada.nextDouble();
+        return (Double) entrada.nextDouble();
     }
-    public static boolean leerBoolean(String texto)
-    {
+   
+   public static boolean leerBoolean(String texto)
+   {
         System.out.print(texto);
         String entrada = new Scanner(System.in).nextLine();
 
-        if (toUpperCase(entrada.charAt(0)) == 'S')
-        {
-            return true;
-        } 
-        else
-        {
-            return false;
-        }
+       return toUpperCase(entrada.charAt(0)) == 'S';
     }
 
 }

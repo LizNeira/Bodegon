@@ -2,21 +2,25 @@
 package bodegon;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.Serializable;
 
-
-public class Controlador 
+public class Controlador implements Serializable
 {
-    public void ejecutar() {
+    Sistema sistema = null;
+    GuardarYLeerArchivo guardarYLeerArchivo = null;
+    private String usuario = "";
+    private String contrasenia = "";
+    private String codigo = "";
+    
+    public void ejecutar() throws IOException  {
 
-        Sistema sistema = new Sistema();
-        String usuario,contrasenia, codigo;
-        boolean seguir;
+       sistema = new Sistema();
+       guardarYLeerArchivo =new GuardarYLeerArchivo();
+       boolean seguir;
 
         try 
         {
-           sistema = sistema.deSerializar("sistema.txt");
+           sistema = guardarYLeerArchivo.deSerializar();
            seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar [s/n]: ");
         } 
         catch (IOException | ClassNotFoundException e)
@@ -44,17 +48,8 @@ public class Controlador
             }
             
             sistema.getSistemaEmpleado().getlistaEmpleado().add(new Administrador(usuario, contrasenia, codigo));
-            
-            try 
-            {
-               sistema.serializar("sistema.txt");
-               EntradaYSalida.mostrarMensaje("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
-            } 
-            catch (IOException ex) 
-            {
-             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
+            guardarYLeerArchivo.guardarArchivo(sistema);
+            EntradaYSalida.mostrarMensaje("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
             seguir = false;     
         }
         
@@ -81,6 +76,11 @@ public class Controlador
             }
         }
 
+    }
+    
+    public String getCodigo()
+    {
+        return codigo;
     }
 
 }
