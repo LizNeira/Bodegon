@@ -6,8 +6,16 @@ import java.io.Serializable;
 
 public class Bebida implements Serializable
 {
-  private String descripcion;
+ private String descripcion;
+  private double precio;
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public void setDescripcion(String descripcion)
     {
@@ -23,5 +31,4 @@ public class Bebida implements Serializable
     {
         return new Bebida();
     }
-    
 }

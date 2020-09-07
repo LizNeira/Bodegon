@@ -8,22 +8,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-/**
- *
- * @author Liz
- */
 public class GuardarYLeerArchivo implements Serializable
 {
     private String nombreArchivo;
-//    private Sistema sistema =new Sistema();
     
     public GuardarYLeerArchivo()
     {
+
         this.nombreArchivo = "sistema.txt";
     }
+  
     
-    
-        public Sistema deSerializar() throws IOException, ClassNotFoundException 
+    public Sistema deSerializar() throws IOException, ClassNotFoundException 
      {
         FileInputStream f = new FileInputStream(this.nombreArchivo);
         ObjectInputStream o = new ObjectInputStream(f);
@@ -33,24 +29,24 @@ public class GuardarYLeerArchivo implements Serializable
         return sistema;
      }
 
-    public void serializar(Sistema sistema) throws IOException 
-     {
+      public void serializar(Sistema sistema) throws IOException 
+    {
         FileOutputStream f = new FileOutputStream(this.nombreArchivo);
         ObjectOutputStream o = new ObjectOutputStream(f);
         o.writeObject(sistema);
         o.close();
         f.close();
      }
-    
     public void guardarArchivo(Sistema sistema)
     {
-          try 
-                {
+            try 
+              {
                   this.serializar(sistema);
-                } catch (IOException e)
-                {
+              } 
+               catch (IOException e)
+             {
                     e.getMessage();
-                }
+             }
     }
-    
+
 }

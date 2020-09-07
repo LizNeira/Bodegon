@@ -1,34 +1,41 @@
-
 package bodegon;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.*;
 
 public class Controlador implements Serializable
 {
+     private String usuario;
+     private String contrasenia;
+     private String codigo;
+     private static Controlador instancia;
      
-  
-//    public Controlador ()
-//    {
-//    }
+    private Controlador()
+    {
+        
+    }
+    
+    public static Controlador getInstancia()
+    {
+      if(null == instancia)
+        instancia = new Controlador();
+      
+     return instancia; 
+    }
+   
+    public void ejecutar() 
+    {   
+           GuardarYLeerArchivo guardarYLeerArchivo = new GuardarYLeerArchivo();
+           Sistema sistema = new Sistema();
 
-    public void ejecutar() throws IOException  {
-
-       Sistema sistema = new Sistema();
-      GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
-        String usuario,contrasenia, codigo;
         boolean seguir;
 
         try 
         {
-           sistema=guardarYLeerArchivo.deSerializar();
-         // sistema=sistema.deSerializar();
-
+           sistema = guardarYLeerArchivo.deSerializar();
            seguir = EntradaYSalida.leerBoolean("SISTEMA BODEGÓN \nDesea ingresar [s/n]: ");
         } 
-        catch (IOException | ClassNotFoundException e)
-        {
+        catch (Exception e)
+        { 
             usuario = EntradaYSalida.leerCadena("Arranque inicial del sistema.\n"
                     + "Nuevo Administrador, Ingrese su nombre: ");
             while (usuario.isEmpty())
@@ -51,9 +58,9 @@ public class Controlador implements Serializable
                         + "+Ingrese su código:");
             }
             
-            sistema.getSistemaEmpleado().getlistaEmpleado().add(new Administrador(usuario, contrasenia, codigo));
-            guardarYLeerArchivo.guardarArchivo(sistema);
-          //   sistema.guardarArchivo(sistema);
+           sistema.getSistemaEmpleado().getlistaEmpleado().add(new Administrador(usuario, contrasenia, codigo));
+           guardarYLeerArchivo.guardarArchivo(sistema);
+
             EntradaYSalida.mostrarMensaje("El arranque ha sido exitoso. Ahora se debe reiniciar el sistema...");
 
             seguir = false;     
@@ -83,5 +90,14 @@ public class Controlador implements Serializable
         }
 
     }
+        
+    public String getCodigo()
+    {
+        return codigo;
+    }
+
+    
+    
+
 
 }

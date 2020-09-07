@@ -1,6 +1,7 @@
 package bodegon;
 
-import java.io.*;
+import java.io.Serializable;
+
 
 public class Sistema  implements Serializable
 {

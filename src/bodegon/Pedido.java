@@ -9,11 +9,11 @@ public class Pedido implements Serializable
     private double precio;
     private int numeroMesa;
     
-    public Pedido(Preparacion preparacion, Bebida bebida /*int numeroMesa*/)
+    public Pedido(Preparacion preparacion, Bebida bebida, int numeroMesa)
     {
        this.preparacion = preparacion;
        this.bebida = bebida;
-       //this.numeroMesa = numeroMesa;
+       this.numeroMesa = numeroMesa;
     }
 
     public Bebida getBebida() 
@@ -47,7 +47,7 @@ public class Pedido implements Serializable
     }
 
     public double getPrecio() {
-        return precio;
+        return preparacion.getPrecio() + bebida.getPrecio();
     }
 
     public void setPrecio(double precio) {

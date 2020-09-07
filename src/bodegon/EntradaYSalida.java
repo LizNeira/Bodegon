@@ -47,6 +47,12 @@ public class EntradaYSalida
         {
             return false;
         }
+        
+//          System.out.print(texto);
+//        String entrada = new Scanner(System.in).nextLine();
+//
+//       return toUpperCase(entrada.charAt(0)) == 'S';
+ 
     }
 
 }
