@@ -9,43 +9,43 @@ import java.io.Serializable;
 
 public class GuardarYLeerArchivo implements Serializable
 {
-    private final String nombreArchivo;
+
+    private String nombreArchivo;
     
     public GuardarYLeerArchivo()
     {
+
         this.nombreArchivo = "sistema.txt";
     }
-    
     public Sistema deSerializar() throws IOException, ClassNotFoundException 
-    {
-        Sistema sistema;
-        
-        try (FileInputStream f = new FileInputStream(this.nombreArchivo); 
-                                 ObjectInputStream o = new ObjectInputStream(f))
-        {
-            sistema = (Sistema) o.readObject();
-        }
+     {
+        FileInputStream f = new FileInputStream(this.nombreArchivo);
+        ObjectInputStream o = new ObjectInputStream(f);
+        Sistema sistema = (Sistema) o.readObject();
+        o.close();
+        f.close();
         return sistema;
      }
 
+ 
     public void serializar(Sistema sistema) throws IOException 
     {
-        try (FileOutputStream f = new FileOutputStream(this.nombreArchivo); 
-                                  ObjectOutputStream o = new ObjectOutputStream(f)) 
-        {
-            o.writeObject(sistema);
-        }
+        FileOutputStream f = new FileOutputStream(this.nombreArchivo);
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(sistema);
+        o.close();
+        f.close();
      }
-    
     public void guardarArchivo(Sistema sistema)
     {
-          try 
-          {
-             this.serializar(sistema);
-          } catch (IOException e)
-            {
-               e.getMessage();
-            }
+            try 
+              {
+                  this.serializar(sistema);
+              } 
+               catch (IOException e)
+             {
+                    e.getMessage();
+             }
     }
-    
+
 }

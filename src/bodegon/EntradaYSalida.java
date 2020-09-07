@@ -5,11 +5,10 @@ import java.util.Scanner;
 
 public class EntradaYSalida
 {
-   private static Scanner entrada = null;  
+   private static final Scanner entrada = new Scanner(System.in); 
 
    private EntradaYSalida()
    {
-       entrada = new Scanner(System.in);
    }
 
    public static void mostrarMensaje(String s)
@@ -41,7 +40,14 @@ public class EntradaYSalida
         System.out.print(texto);
         String entrada = new Scanner(System.in).nextLine();
 
-       return toUpperCase(entrada.charAt(0)) == 'S';
+        if (toUpperCase(entrada.charAt(0)) == 'S')
+        {
+            return true;
+        } 
+        else
+        {
+            return false;
+        }
     }
 
 }

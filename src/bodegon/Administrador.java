@@ -5,14 +5,15 @@ import java.io.Serializable;
 
 public class Administrador extends Empleado implements Serializable
 {    
-    GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
-    Resumen resumen = null;
+    private GuardarYLeerArchivo guardarYLeerArchivo = new GuardarYLeerArchivo();
+    private Resumen resumen = null;
     
     public Administrador(String usuario, String contrasenia, String codigo)
     {
         super(usuario, contrasenia, codigo);
         resumen = new Resumen();
     }
+
    
     @Override
     public boolean menuPrincipal(Sistema sistema)
@@ -146,7 +147,8 @@ public class Administrador extends Empleado implements Serializable
 
     private void darPrecioPedido(Sistema sistema)
     {
-        Double precio = 0.0;
+        Double precioPreparacion = 0.0;
+        Double precioBebida = 0.0;
         String opcion;
         int indicePedido;
         
@@ -163,24 +165,38 @@ public class Administrador extends Empleado implements Serializable
                 }
                 sistema.getSistemaPedido().precioPedido(indicePedido);
                 
-                precio = EntradaYSalida.leerDouble("\nIngrese el precio: ");
-                while (precio <= 0.0)
+                precioPreparacion = EntradaYSalida.leerDouble("\nIngrese el precio de la preparacion: ");
+                
+                while (precioPreparacion <= 0.0)
                 {
-                precio = EntradaYSalida.leerDouble("ERROR: El usuario no puede ser nulo"
-                        + "Ingrese su usuario: ");
+                    precioPreparacion = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
+                        + "Ingrese el precio de la preparacion: ");
                 }
                 
-               sistema.getSistemaPedido().getListaPedidoCocinar().get(indicePedido).setPrecio(precio);
-               resumen.setPrecioTotal(precio);
-               EntradaYSalida.mostrarMensaje("Precio a pagar" + precio);
-     
-               opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
+                precioBebida = EntradaYSalida.leerDouble("Ingrese el precio de la bebida: ");
+                while (precioBebida <= 0.0)
+                {
+                    precioBebida = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
+                        + "Ingrese el precio de la bebida: ");
+                }
+                
+                Pedido pedidoSeleccionado = sistema.getSistemaPedido().getListaPedidoCocinar().get(indicePedido-1);
+                pedidoSeleccionado.getBebida().setPrecio(precioBebida);
+                pedidoSeleccionado.getPreparacion().setPrecio(precioPreparacion);
+                
+               EntradaYSalida.mostrarMensaje("Precio a pagar: $"+ pedidoSeleccionado.getPrecio());
+               resumen.setPrecioTotal(precioBebida+precioPreparacion);
+               guardarYLeerArchivo.guardarArchivo(sistema);
+
+               opcion = EntradaYSalida.leerCadena("\n\nDesea continuar[s/n]?: ");
 
         } while (opcion.equals("s") || opcion.equals("S"));
+        
     }
 
     private void mostrarResumenGeneral()
     {
+
         String mensaje;
         int opcion;
         
@@ -221,6 +237,7 @@ public class Administrador extends Empleado implements Serializable
   
 
  }
+
     
 
    

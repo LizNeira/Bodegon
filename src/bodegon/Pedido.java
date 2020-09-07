@@ -47,7 +47,7 @@ public class Pedido implements Serializable
     }
 
     public double getPrecio() {
-        return precio;
+        return preparacion.getPrecio() + bebida.getPrecio();
     }
 
     public void setPrecio(double precio) {

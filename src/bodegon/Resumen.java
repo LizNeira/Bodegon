@@ -1,9 +1,10 @@
 package bodegon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Resumen 
+public class Resumen implements Serializable
 {
     private final  ArrayList<String> listaBebida;
     private final  ArrayList<String> listaPreparacion;
@@ -24,10 +25,10 @@ public class Resumen
         String bebidaMasVendida = ""; 
         Integer mayor = 0;
         
-        for (int i = 0; i < listaPreparacion.size(); i++)
+
+        for (int i = 0; i < listaBebida.size(); i++)
         {
-            String nombreBebida = listaPreparacion.get(i);
-        
+            String nombreBebida = listaBebida.get(i);        
             if (mapa.containsKey(nombreBebida)) 
                 mapa.put(nombreBebida, mapa.get(nombreBebida) + 1);
             
@@ -115,9 +116,10 @@ public class Resumen
         return codigoMasRepetido;
     }
 
-    public void setCodigoCamarero(Integer codigoCamarero) 
+    
+    public void setCodigoCamarero(String codigoCamarero) 
     {
-        this.listaCodigoCamarero.add(codigoCamarero);
+        this.listaCodigoCamarero.add(Integer.valueOf(codigoCamarero));
     }
 
     public Double getPrecioTotal() 

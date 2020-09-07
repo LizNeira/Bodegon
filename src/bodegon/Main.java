@@ -1,14 +1,12 @@
 
 package bodegon;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) 
     {
        
-        
-       Controlador controlador = new Controlador();
+        Controlador controlador  = Controlador.getInstancia();
+       
         try
         {
             controlador.ejecutar();
