@@ -40,14 +40,7 @@ public class EntradaYSalida
         System.out.print(texto);
         String entrada = new Scanner(System.in).nextLine();
 
-        if (toUpperCase(entrada.charAt(0)) == 'S')
-        {
-            return true;
-        } 
-        else
-        {
-            return false;
-        }
+       return toUpperCase(entrada.charAt(0)) == 'S';
     }
 
 }

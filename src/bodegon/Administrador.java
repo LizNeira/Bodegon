@@ -11,7 +11,7 @@ public class Administrador extends Empleado implements Serializable
     public Administrador(String usuario, String contrasenia, String codigo)
     {
         super(usuario, contrasenia, codigo);
-        resumen = new Resumen();
+        resumen = Resumen.getInstancia();
     }
 
    
@@ -30,6 +30,7 @@ public class Administrador extends Empleado implements Serializable
                     +"[3] Dar precios a pedidos\n"
                     +"[4] Ver resumen de pedidos\n"
                     +"[5] Salir\n"
+                    +"[6] Salir del sistema\n"
                     +"Digite una opcion: ";
          opcion = EntradaYSalida.leerEntero(mensaje);
         
@@ -47,9 +48,13 @@ public class Administrador extends Empleado implements Serializable
             case 4:
                     mostrarResumenGeneral();
              break;
+            case 6:
+                    seguir = false;
+                    EntradaYSalida.mostrarMensaje("Cerrando sistema...");
+             break;
          }
        
-       } while (!(opcion == 5));
+       } while (!(opcion == 5) && !(opcion == 6) );
        
         return seguir;
 
@@ -92,7 +97,7 @@ public class Administrador extends Empleado implements Serializable
             {
                 sistema.getSistemaEmpleado().getlistaEmpleado().add(new Cocinero(usuario, contrasenia, codigo));
                 guardarYLeerArchivo.guardarArchivo(sistema);
-                EntradaYSalida.mostrarMensaje("\nSe ha incorporado el COCINERO al sistema\n");
+                EntradaYSalida.mostrarMensaje("\nSe ha incorporado un COCINERO al sistema\n");
             }
             
             opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
@@ -138,7 +143,7 @@ public class Administrador extends Empleado implements Serializable
             {
                 sistema.getSistemaEmpleado().getlistaEmpleado().add(new Camarero(usuario, contrasenia, codigo));
                 guardarYLeerArchivo.guardarArchivo(sistema);
-                EntradaYSalida.mostrarMensaje("\nSe ha incorporado el CAMARERO al sistema\n");
+                EntradaYSalida.mostrarMensaje("\nSe ha incorporado un CAMARERO al sistema\n");
             }
             opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
@@ -154,41 +159,42 @@ public class Administrador extends Empleado implements Serializable
         
         do
         {
-               EntradaYSalida.mostrarMensaje("\n----Lista de pedidos----");
-               sistema.getSistemaPedido().mostrarListaPedidoCocinar();
-               indicePedido = EntradaYSalida.leerEntero("\n\nIngrese una opción: ");
+            EntradaYSalida.mostrarMensaje("\n----Lista de pedidos----");
+            sistema.getSistemaPedido().mostrarListaPedidoCocinar();
+            indicePedido = EntradaYSalida.leerEntero("\n\nIngrese una opción: ");
                 
-                while (indicePedido < 0 || indicePedido > sistema.getSistemaPedido().getListaPedidoCocinar().size())
-                {
-                  indicePedido = EntradaYSalida.leerEntero("\nOpcion no valida"
-                  + "\nIngrese nuevamente: ");
-                }
-                sistema.getSistemaPedido().precioPedido(indicePedido);
+            while (indicePedido < 0 || indicePedido > sistema.getSistemaPedido().getListaPedidoCocinar().size())
+            {
+                indicePedido = EntradaYSalida.leerEntero("\nOpcion no valida"
+                + "\nIngrese nuevamente: ");
+            }
+            
+            sistema.getSistemaPedido().precioPedido(indicePedido);    
+            precioPreparacion = EntradaYSalida.leerDouble("\nIngrese el precio de la preparacion: ");
                 
-                precioPreparacion = EntradaYSalida.leerDouble("\nIngrese el precio de la preparacion: ");
+            while (precioPreparacion <= 0.0)
+            {
+                 precioPreparacion = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
+                      + "Ingrese el precio de la preparacion: ");
+            }
                 
-                while (precioPreparacion <= 0.0)
-                {
-                    precioPreparacion = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
-                        + "Ingrese el precio de la preparacion: ");
-                }
+            precioBebida = EntradaYSalida.leerDouble("Ingrese el precio de la bebida: ");
+            
+            while (precioBebida <= 0.0)
+            {
+                  precioBebida = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
+                       + "Ingrese el precio de la bebida: ");
+            }
                 
-                precioBebida = EntradaYSalida.leerDouble("Ingrese el precio de la bebida: ");
-                while (precioBebida <= 0.0)
-                {
-                    precioBebida = EntradaYSalida.leerDouble("ERROR: El precio es incorrecto"
-                        + "Ingrese el precio de la bebida: ");
-                }
-                
-                Pedido pedidoSeleccionado = sistema.getSistemaPedido().getListaPedidoCocinar().get(indicePedido-1);
-                pedidoSeleccionado.getBebida().setPrecio(precioBebida);
-                pedidoSeleccionado.getPreparacion().setPrecio(precioPreparacion);
-                
-               EntradaYSalida.mostrarMensaje("Precio a pagar: $"+ pedidoSeleccionado.getPrecio());
-               resumen.setPrecioTotal(precioBebida+precioPreparacion);
-               guardarYLeerArchivo.guardarArchivo(sistema);
+            Pedido pedidoSeleccionado = sistema.getSistemaPedido().getListaPedidoCocinar().get(indicePedido-1);
+            pedidoSeleccionado.getBebida().setPrecio(precioBebida);
+            pedidoSeleccionado.getPreparacion().setPrecio(precioPreparacion);
+             
+            EntradaYSalida.mostrarMensaje("Precio a pagar: $"+ pedidoSeleccionado.getPrecio());
+            resumen.setPrecioTotal(precioBebida+precioPreparacion);
+            guardarYLeerArchivo.guardarArchivo(sistema);
 
-               opcion = EntradaYSalida.leerCadena("\n\nDesea continuar[s/n]?: ");
+            opcion = EntradaYSalida.leerCadena("\n\nDesea continuar[s/n]?: ");
 
         } while (opcion.equals("s") || opcion.equals("S"));
         
@@ -196,7 +202,6 @@ public class Administrador extends Empleado implements Serializable
 
     private void mostrarResumenGeneral()
     {
-
         String mensaje;
         int opcion;
         

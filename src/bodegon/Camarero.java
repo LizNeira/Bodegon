@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Camarero extends Empleado implements Serializable
 {    
-
    Resumen resumen = null;
    Controlador controlador = null;
    GuardarYLeerArchivo guardarYLeerArchivo =new GuardarYLeerArchivo();
@@ -12,7 +11,7 @@ public class Camarero extends Empleado implements Serializable
    public Camarero(String usuario, String contrasenia, String codigo)
    {
       super(usuario, contrasenia, codigo);
-      resumen = new Resumen();
+      resumen = Resumen.getInstancia();
    }
    
    @Override
@@ -53,38 +52,38 @@ public class Camarero extends Empleado implements Serializable
         String opcion;
         int numeroMesa;
         
-      do
-      {       
-        EntradaYSalida.mostrarMensaje("\n----Tomar Pedido----\n");
-        descripcion = EntradaYSalida.leerCadena("Ingrese la preparacion: ");
-        while(descripcion.isEmpty())
-        {
-          descripcion = EntradaYSalida.leerCadena("\nLa prepracion ingresada no es válida\n"
+       do
+       {       
+         EntradaYSalida.mostrarMensaje("\n----Tomar Pedido----\n");
+         descripcion = EntradaYSalida.leerCadena("Ingrese la preparacion: ");
+         while(descripcion.isEmpty())
+         {
+           descripcion = EntradaYSalida.leerCadena("\nLa prepracion ingresada no es válida\n"
                                                    + "\nIngrese nuevamente: ");
-        }
+         }
 
-        nombreBebida = EntradaYSalida.leerCadena("Ingrese la bebida: "); 
-        while(nombreBebida.isEmpty())
-        {
-          nombreBebida = EntradaYSalida.leerCadena("\nEl bebida ingresada no es válida\n"
+         nombreBebida = EntradaYSalida.leerCadena("Ingrese la bebida: "); 
+         while(nombreBebida.isEmpty())
+         {
+           nombreBebida = EntradaYSalida.leerCadena("\nEl bebida ingresada no es válida\n"
                                                    + "\nIngrese nuevamente: ");
-        }
+         }
         
-        numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
-        while(numeroMesa <= 0)
-        {
-          numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
+         numeroMesa = EntradaYSalida.leerEntero("Ingrese el numero de mesa: "); 
+         while(numeroMesa <= 0)
+         {
+           numeroMesa = EntradaYSalida.leerEntero("\nLa mesa ingresada no es válida\n"
                                                    + "\nIngrese nuevamente: ");
-        }
+         }
         
-        sistema.getSistemaPedido().setPedido(Preparacion.obtenerPreparacion(), descripcion,
+         sistema.getSistemaPedido().setPedido(Preparacion.obtenerPreparacion(), descripcion,
                                 Bebida.obtenerBebida(), nombreBebida,numeroMesa);
         
-        resumen.setNombreBebida(nombreBebida);
-        resumen.setNombrePreparacion(descripcion);
-       // resumen.setCodigoCamarero(controlador.getCodigo());
-        guardarYLeerArchivo.guardarArchivo(sistema);
-        opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
+         resumen.setNombreBebida(nombreBebida);
+         resumen.setNombrePreparacion(descripcion);
+         resumen.setCodigoCamarero(controlador.getCodigo());
+         guardarYLeerArchivo.guardarArchivo(sistema);
+         opcion = EntradaYSalida.leerCadena("\nDesea continuar[s/n]?: ");
 
         } while( opcion.equals("s") || opcion.equals("S"));
                 

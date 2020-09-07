@@ -6,18 +6,29 @@ import java.util.HashMap;
 
 public class Resumen implements Serializable
 {
-    private final  ArrayList<String> listaBebida;
-    private final  ArrayList<String> listaPreparacion;
-    private final  ArrayList<Integer> listaCodigoCamarero;
-    private final  ArrayList<Double> listaPrecioPedido; 
+    private static ArrayList<String> listaBebida;
+    private static ArrayList<String> listaPreparacion;
+    private static ArrayList<String> listaCodigoCamarero;
+    private static ArrayList<Double> listaPrecioPedido;
+    private static Resumen instancia;
+
+    private Resumen()
+    {}
     
-    public Resumen()
+    public static Resumen getInstancia()
     {
-      listaBebida = new ArrayList<>();
-      listaPreparacion = new ArrayList<>();
-      listaCodigoCamarero = new ArrayList<>();
-      listaPrecioPedido = new ArrayList<>();
+      if(null == instancia)
+      {
+        instancia = new Resumen();
+        listaBebida = new ArrayList<>();
+        listaPreparacion = new ArrayList<>();
+        listaCodigoCamarero = new ArrayList<>();
+        listaPrecioPedido = new ArrayList<>();
+      }
+        
+        return instancia; 
     }
+   
 
     public String getBebidaMasVendida() 
     {
@@ -25,17 +36,17 @@ public class Resumen implements Serializable
         String bebidaMasVendida = ""; 
         Integer mayor = 0;
         
-
         for (int i = 0; i < listaBebida.size(); i++)
         {
             String nombreBebida = listaBebida.get(i);        
+            
             if (mapa.containsKey(nombreBebida)) 
                 mapa.put(nombreBebida, mapa.get(nombreBebida) + 1);
             
             else 
              mapa.put(nombreBebida, 1);
         }
-              
+        
         for (HashMap.Entry<String, Integer> entry : mapa.entrySet()) 
         {
             if (entry.getValue() > mayor) 
@@ -50,7 +61,7 @@ public class Resumen implements Serializable
 
     public void setNombreBebida(String nombreBebida)
     {
-        this.listaBebida.add(nombreBebida);
+        listaBebida.add(nombreBebida);
     }
 
     public String getPreparacionMasVendida() 
@@ -84,18 +95,18 @@ public class Resumen implements Serializable
 
     public void setNombrePreparacion(String nombrePreparacion)
     {
-        this.listaPreparacion.add(nombrePreparacion);
+        listaPreparacion.add(nombrePreparacion);
     }
 
-    public Integer getCamareroConMasPedido() 
+    public String getCamareroConMasPedido() 
     {
-        HashMap<Integer, Integer> mapa = new HashMap<>();
-        Integer codigoMasRepetido = 0; 
+        HashMap<String, Integer> mapa = new HashMap<>();
+        String codigoMasRepetido = ""; 
         Integer mayor = 0;
         
         for (int i = 0; i < listaCodigoCamarero.size(); i++)
         {
-            int codigo = listaCodigoCamarero.get(i);
+            String codigo = listaCodigoCamarero.get(i);
         
             if (mapa.containsKey(codigo)) 
                 mapa.put(codigo, mapa.get(codigo) + 1);
@@ -104,7 +115,7 @@ public class Resumen implements Serializable
              mapa.put(codigo, 1);
         }
               
-        for (HashMap.Entry<Integer, Integer> entry : mapa.entrySet()) 
+        for (HashMap.Entry<String, Integer> entry : mapa.entrySet()) 
         {
             if (entry.getValue() > mayor) 
             {
@@ -116,12 +127,12 @@ public class Resumen implements Serializable
         return codigoMasRepetido;
     }
 
-    
     public void setCodigoCamarero(String codigoCamarero) 
     {
-        this.listaCodigoCamarero.add(Integer.valueOf(codigoCamarero));
+        listaCodigoCamarero.add(codigoCamarero);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Your Fold Comment">
     public Double getPrecioTotal() 
     {
         Double precioTotal = 0.0;
@@ -131,7 +142,7 @@ public class Resumen implements Serializable
         
         return precioTotal;
     }
-
+    // </editor-fold>
     public void setPrecioTotal(Double precioPedido)
     {
         this.listaPrecioPedido.add(precioPedido);
