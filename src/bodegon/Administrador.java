@@ -50,7 +50,7 @@ public class Administrador extends Empleado implements Serializable
              break;
             case 6:
                     seguir = false;
-                    EntradaYSalida.mostrarMensaje("Cerrando sistema...");
+                    EntradaYSalida.mostrarMensaje("Cerrando sistema...\n");
              break;
          }
        
